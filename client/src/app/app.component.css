@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+    min-height: 5vh;
+    background-color: rgb(69, 69, 69);
+    align-items: center;
+    font-family: sans-serif;
+
+}
+nav .logoContainer{
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(255, 255, 255); 
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+nav div a{
+    color: rgb(255, 255, 255); 
+}
+nav ul{
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    width:50%;
+}
+nav ul li a{
+    font-size: 13px;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+nav li a:hover{ 
+    color: rgb(102, 173, 233); 
+}

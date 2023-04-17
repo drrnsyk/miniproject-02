@@ -1,0 +1,17 @@
+<nav *ngIf="!isLoggedIn">
+    <div class="logoContainer">
+        <a routerLink="/" style="cursor:pointer">GAMESDEALS.COM</a> 
+    </div>
+    
+    <ul>
+        <li>
+            <a routerLink="/auth/login" style="cursor:pointer">Login</a>
+        </li>
+        <li>
+            <a routerLink="/auth/signup" style="cursor:pointer">Signup</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="form-container">
+</div>
