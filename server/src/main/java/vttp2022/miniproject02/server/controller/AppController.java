@@ -1,15 +1,37 @@
 package vttp2022.miniproject02.server.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.json.JsonObject;
+import vttp2022.miniproject02.server.model.Account;
+import vttp2022.miniproject02.server.service.AppService;
 
 @Controller
 @RequestMapping("/api")
 public class AppController {
+
+    @Autowired
+    private AppService appSvc;
 
     // @GetMapping("/user")
     // @ResponseBody
@@ -25,14 +47,91 @@ public class AppController {
     //     return ResponseEntity.ok("ADMIN DASHBOARD: Only admins have access to this page");
     // }
 
-    @GetMapping("/admin/accounts")
+    @GetMapping("/dashboard/accounts")
     @ResponseBody
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<String> getAccountsData() {
+    public ResponseEntity<String> getAccounts() {
 
-        System.out.println("getAccountsData API called");
+        System.out.println("getAccounts API called");
 
-        return ResponseEntity.ok(null);
+        String jsonArrAccountsStr = appSvc.getAllAccounts();
+
+        return ResponseEntity.ok(jsonArrAccountsStr);
+    }
+
+    @GetMapping("/dashboard/account/{id}")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> getAccountById(@PathVariable String id) {
+        
+        System.out.printf(">>> path variable: id=%s\n", id);
+
+        Optional<Account> opt = appSvc.getAccountById(id);
+
+        if (opt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No account found");
+        }
+
+        Account account = opt.get();
+        JsonObject joAccount = account.toJson();
+        String joStrAccount = joAccount.toString();
+
+        System.out.println(joStrAccount);
+
+        return ResponseEntity.ok(joStrAccount);
+    }
+
+    @PutMapping(value="/dashboard/account/update/{id}", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<String> updateAccountById(@PathVariable String id, @RequestBody Account updatedAccount) {
+
+        System.out.printf(">>> path variable: id=%s\n", id);
+        System.out.printf(">>> query param: name=%s\n", updatedAccount.getName());
+        System.out.printf(">>> query param: email=%s\n", updatedAccount.getEmail());
+
+        appSvc.updateAccountById(id, updatedAccount);
+
+        // Create a map to hold the data
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put("message", "Update successfull!");
+
+        // Convert the map to JSON using Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse;
+        try {
+            jsonResponse = objectMapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            // Handle the exception
+            jsonResponse = "{\"error\":\"Failed to create JSON response\"}";
+        }
+
+        return ResponseEntity.ok(jsonResponse);
+    }
+
+    @DeleteMapping("/dashboard/account/delete")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> deleteAccountById(@RequestParam String id) {
+
+        System.out.printf(">>> query param: id=%s\n", id);
+
+        appSvc.deleteAccountById(id);
+
+        // Create a map to hold the data
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put("message", "Delete successfull!");
+
+        // Convert the map to JSON using Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse;
+        try {
+            jsonResponse = objectMapper.writeValueAsString(responseMap);
+        } catch (JsonProcessingException e) {
+            // Handle the exception
+            jsonResponse = "{\"error\":\"Failed to create JSON response\"}";
+        }
+
+        return ResponseEntity.ok(jsonResponse);
     }
 
     @GetMapping("/user/search")

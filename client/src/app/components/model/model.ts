@@ -31,7 +31,7 @@ export interface LoginResp extends Status{
     // email: string
 }
 
-export interface AccountData {
+export interface Account {
     id: string
     email: string
     name: string

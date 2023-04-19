@@ -1,0 +1,15 @@
+<div class="form-container">
+    <div class="table-container">
+
+        <div>
+            <h2>Are you sure you want to delete account ID: {{id}}?</h2>
+        </div>
+
+        <div>
+            <button mat-raised-button color="primary" (click)="doYes(id)">Yes, Delete</button>
+            &nbsp;
+            <button mat-button color="warn" (click)="doNo()">No, Don't Delete</button>
+        </div>
+
+    </div>
+</div>

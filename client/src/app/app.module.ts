@@ -13,6 +13,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SearchComponent } from './components/search/search.component';
 import { HomeComponent } from './components/home/home.component';
 import { InterceptorService } from './service/interceptor.service';
+import { AccountComponent } from './components/dashboard/account.component';
+import { AccounddelComponent } from './components/dashboard/accounddel.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { InterceptorService } from './service/interceptor.service';
     SignupComponent,
     DashboardComponent,
     SearchComponent,
-    HomeComponent
+    HomeComponent,
+    AccountComponent,
+    AccounddelComponent
   ],
   imports: [
     BrowserModule,

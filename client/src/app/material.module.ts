@@ -9,11 +9,15 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const matModules: any[] = [
   MatToolbarModule, MatFormFieldModule, MatInputModule,
   MatIconModule, MatDatepickerModule, MatNativeDateModule,
-  MatButtonModule, MatSlideToggleModule, MatCardModule, MatIconModule
+  MatButtonModule, MatSlideToggleModule, MatCardModule, MatIconModule,
+  MatPaginatorModule, MatTableModule, MatSortModule, 
 ]
 
 @NgModule({
