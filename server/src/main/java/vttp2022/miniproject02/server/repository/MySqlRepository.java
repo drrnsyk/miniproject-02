@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import vttp2022.miniproject02.server.model.Account;
+import vttp2022.miniproject02.server.model.Store;
 
 import static vttp2022.miniproject02.server.repository.Queries.*;
 
@@ -50,6 +51,13 @@ public class MySqlRepository {
 
     public void deleteAccountById(String id) {
         jdbcTemplate.update(SQL_DELETE_ACCOUNT_BY_ID, id);
+    }
+
+    public void saveStoresToMySql(List<Store> stores) {
+        
+        for (Store store : stores) {
+            jdbcTemplate.update(SQL_INSERT_STORES, store.getStoreID(), store.getStoreName(), store.getIsActive(), store.getImagesBanner(), store.getImagesLogo(), store.getImagesIcon());
+        }
     }
     
 }

@@ -13,5 +13,55 @@
     </ul>
 </nav>
 
-<div class="form-container">
-</div>
+<body>
+    <div class="background" *ngIf="isLoggedIn">
+        <div class="box">
+            <mat-card class="example-card" *ngFor="let deal of deals">
+                <mat-card-header>
+                    <mat-card-title><b>{{deal.title}}</b></mat-card-title>
+                    <mat-card-subtitle>This deal is rated: <b>{{deal.dealRating}} out of 10.0</b></mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src="{{deal.thumb}}" alt="Cover photo of the game">
+                <mat-card-content>
+                    <h2>
+                        <tr>
+                            <td style="text-align: right; text-decoration: line-through;">Original Price:</td>&nbsp;
+                            <td style="text-align: right; text-decoration: line-through;">${{deal.normalPrice}}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right; color: red"><b>Sale Price:</b></td>&nbsp;
+                            <td style="text-align: right; color: red"><b>${{deal.salePrice}}</b></td>
+                        </tr>
+                    </h2>
+                </mat-card-content>
+                <mat-card-actions>
+                    <!-- <button mat-raised-button color="primary">More details</button>&nbsp; -->
+                    <button mat-raised-button color="primary">Buy Now!</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    
+    <div class="background" *ngIf="!isLoggedIn">
+        <div class="box">
+            <mat-card class="example-card" *ngFor="let deal of deals">
+                <mat-card-header>
+                    <mat-card-title><b>{{deal.title}}</b></mat-card-title>
+                    <mat-card-subtitle>This deal is rated: <b>{{deal.dealRating}} out of 10.0</b></mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src="{{deal.thumb}}" alt="Cover photo of the game">
+                <mat-card-content>
+                    <p>
+                        Subscribe to our service at just $50 to keep updated with the latest 
+                        game deals. Search for any game and find the lowest price available!
+                        Spend less time finding, more time playing!
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary">Subscribe to see prices!</button>&nbsp;
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</body>
+

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, firstValueFrom } from 'rxjs';
-import { Account } from '../components/model/model';
+import { Account, Deal, Detail, Game, Store } from '../components/model/model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,6 @@ import { Account } from '../components/model/model';
 export class ProtectedService {
 
   constructor(private http: HttpClient) {}
-
-  // call backend to call API to get search game prices
-
-  // call backend to call API to get selected game details
-
-  // call backend to call API to get a list of stores
 
   // call backend to retrieve a list of existing accounts in DB for ADMIN user
   public getAccounts(): Promise<Account[]> {
@@ -59,9 +53,41 @@ export class ProtectedService {
     )
   }
 
-  // call backend to perform CRUD on existing account in DB for ADMIN user
-
+  // call backend to add a new admin account in DB for ADMIN user
   // call backend to retrieve a count of existing accounts in DB for ADMIN user
 
+  // call backend to call API to get a list of deals
+  public getListOfDeals(): Promise<Deal[]> {
+    return firstValueFrom<Deal[]>(
+      this.http.get<Deal[]>('/api/home')
+    )
+  }
+
+  // call backend to call API to get a list of games
+  public getListOfGames(searchTerm: string): Promise<Game[]> {
+    const params = new HttpParams()
+      .set("searchTerm", searchTerm)
+
+    return firstValueFrom<Game[]>(
+      this.http.get<Game[]>('/api/search', { params })
+    )
+  }
+
+  // call backend to call API to get selected deal detail
+  public getDealDetail(dealID: string): Promise<Detail> {
+    const params = new HttpParams()
+      .set("dealID", dealID)
+
+    return firstValueFrom<Detail>(
+      this.http.get<Detail>('/api/deal/detail', { params })
+    )
+  }
+
+  // call backend to call API to get list of stores
+  public getListOfStores(): Promise<Store[]> {
+    return firstValueFrom<Store[]>(
+      this.http.get<Store[]>('/api/stores')
+    )
+  }
 
 } 

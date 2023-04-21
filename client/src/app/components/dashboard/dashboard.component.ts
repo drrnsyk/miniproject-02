@@ -54,6 +54,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  doAddAdmin() {
+    this.router.navigate([ '/api/dashboard/account/admin/add'])
+  }
+
   doEditAccount(id: string) {
     this.router.navigate([ '/api/dashboard/account', id ])
   }

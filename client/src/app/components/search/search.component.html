@@ -1,15 +1,40 @@
-<div class="form-container">
-    <div class="content">
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>Welcome deal hunter</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                {{email}}
-            </mat-card-content>
-            <mat-card-content>
-                Search great deals & play great games!
-            </mat-card-content>
-        </mat-card>
+<body>
+    <div class="background">
+        <div class="search-container">
+            <form [formGroup]="searchForm" (ngSubmit)="doSearch()">
+                <input type="text" placeholder="Search games by title keywords" formControlName="searchTerm">
+                <button mat-raised-button color="primary" type="submit">Search</button>
+            </form>
+        </div>
+    
+        <div class="box">
+            <mat-card class="example-card" *ngFor="let game of games">
+                <mat-card-header>
+                    <mat-card-title><b>{{game.external}}</b></mat-card-title>
+                    <mat-card-subtitle>{{game.gameID}}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-image src="{{game.thumb}}" alt="Cover photo of the game">
+                <mat-card-content>
+                    <h2>
+                        <tr>
+                            <td style="text-align: left; color: Black"><b>Cheapest deal found:</b></td>&nbsp;
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; color: red"><b>${{game.cheapest}}</b></td>
+                        </tr>
+                    </h2>
+                    <h2>
+                        Deal code:
+                    </h2>
+                    <p>
+                        {{game.cheapestDealID}}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <!-- <button mat-raised-button color="primary" (click)="doMore(game.cheapestDealID)">More details</button>&nbsp; -->
+                    <button mat-raised-button color="primary">Buy now!</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </div>
-</div>
+</body>

@@ -15,6 +15,9 @@ import { HomeComponent } from './components/home/home.component';
 import { InterceptorService } from './service/interceptor.service';
 import { AccountComponent } from './components/dashboard/account.component';
 import { AccounddelComponent } from './components/dashboard/accounddel.component';
+import { DetailComponent } from './components/detail/detail.component';
+import { StoreComponent } from './components/store/store.component';
+import { AccountaddComponent } from './components/dashboard/accountadd.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { AccounddelComponent } from './components/dashboard/accounddel.component
     SearchComponent,
     HomeComponent,
     AccountComponent,
-    AccounddelComponent
+    AccounddelComponent,
+    DetailComponent,
+    StoreComponent,
+    AccountaddComponent,
   ],
   imports: [
     BrowserModule,

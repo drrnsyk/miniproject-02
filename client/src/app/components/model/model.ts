@@ -38,3 +38,54 @@ export interface Account {
     password: string
     role: string
 }
+
+export interface Deal {
+    dealID: string
+    dealRating: string
+    storeID: string
+    gameID: string
+    title: string
+    metacriticScore: string
+    isOnSale: string
+    salePrice: string
+    normalPrice: string
+    thumb: string
+}
+
+export interface Game {
+    gameID: string
+    cheapest: string
+    cheapestDealID: string
+    external: string
+    thumb: string
+}
+
+export interface Detail {
+    storeID: string
+    gameID: string
+    name: string
+    salePrice: string
+    retailPrice: string
+    steamRatingText: string
+    steamRatingPercent: string
+    steamRatingCount: string
+    metacriticScore: string
+    metacriticLink: string
+    releaseDate: string
+    publisher: string
+    thumb: string
+    cheaperDealID: string
+    cheaperStoreID: string
+    cheaperSalePrice: string
+    cheapestPrice: string
+    cheapestPriceDate: string
+}
+
+export interface Store {
+    storeID: string
+    storeName: string
+    isActive: Number
+    imagesBanner: string
+    imagesLogo: string
+    imagesIcon: string
+}

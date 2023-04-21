@@ -1,49 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
-
-nav{
-    display: flex;
-    justify-content: space-around;
-    min-height: 5vh;
-    background-color: rgb(69, 69, 69);
-    align-items: center;
-    font-family: sans-serif;
-}
-
-nav .logoContainer{
-    font-size: 20px;
-    font-weight: 600;
-    color: rgb(255, 255, 255); 
-    letter-spacing: 5px;
-    text-transform: uppercase;
-}
-
-nav div a{
-    color: rgb(255, 255, 255); 
-}
-
-nav ul{
-    overflow: hidden;
-    display: flex;
-    justify-content: space-around;
-    list-style: none;
-    width:25% ;
-}
-
-nav ul li a{
-    font-size: 18px;
-    display: block;
-    text-decoration: none;
-    color: white;
-}
-
-nav li a:hover{ 
-    color: rgb(102, 173, 233); 
-}
-
 body {
     background-image: url('../../../assets/background.jpg');
     background-size: contain;
@@ -51,7 +5,7 @@ body {
     background-repeat: repeat;
     background-clip: border-box;
     padding-top: 0%;
-    opacity: 0.9;
+    opacity: 0.93;
 }
 
 .background {
@@ -69,7 +23,7 @@ body {
     flex-wrap: wrap;
     gap: 15px;
     padding: 10px;
-    opacity: 0.95;
+    opacity: 0.93;
 }
 
 .box>* {
@@ -80,10 +34,15 @@ flex: 1 1 250px;
     max-width: 300px;
 }
 
+.example-header-image {
+    background-size: cover;
+  }
+
 mat-card {
     padding: 10px;
     margin: 10px;
-    background: rgb(255, 255, 255);
+    background-color: black;
+    color: white;
 }
 
 mat-card-content {
@@ -94,14 +53,27 @@ mat-card-content {
 mat-card-title {
     display: -webkit-box; /* use the old flexbox syntax for compatibility */
     -webkit-box-orient: vertical; /* set the direction of the flexbox */
-    -webkit-line-clamp: 2; /* set the maximum number of lines */
+    -webkit-line-clamp: 1; /* set the maximum number of lines */
     overflow: hidden; /* hide any text that overflows the max-height */
     line-height: 1.2em; /* set the height of one line */
-    height: 2.6em; /* set the height of three lines */
+    height: 1.6em; /* set the height of three lines */
+}
+
+mat-card-subtitle {
+    color: white;
+    margin-bottom: 10px;
 }
 
 mat-card img {
     width: 100%;
     height: 200px; /* set a fixed height or use a consistent aspect ratio */
-    object-fit: cover; /* to ensure the image covers the entire space */
+    object-fit: contain; /* to ensure the image covers the entire space */
+    background-color: black;
+}
+
+.store-info {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
 }

@@ -8,6 +8,10 @@
             </h2>
         </div>
 
+        <div>
+            <h3><button mat-raised-button color="primary" style="width: 300px;" (click)="doAddAdmin()">Add a new Administator</button></h3>
+        </div>
+
         <mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
@@ -40,8 +44,8 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
-        <!-- Add the Angular Material paginator component -->
-        <mat-paginator [length]="accounts.length" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+        <!-- Add the Angular Material paginator component
+        <mat-paginator [length]="accounts.length" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator> -->
         
     </div>
 </div>

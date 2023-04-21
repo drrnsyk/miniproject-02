@@ -33,7 +33,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf().disable()
-            .authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
+            .authorizeHttpRequests().requestMatchers("/auth/**", "/api/home").permitAll()
             .and()
             .authorizeHttpRequests().requestMatchers("/api/**").authenticated()  
             .and()
@@ -44,7 +44,6 @@ public class SecurityConfiguration {
             .and()
             .authenticationProvider(authProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-    
         return http.build();
     }
     

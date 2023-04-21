@@ -42,9 +42,10 @@ export class AuthService {
     }
 
     logout(){
-        localStorage.removeItem("email");
-        localStorage.removeItem("token");
-        this.router.navigate(['/auth/login']);
+        localStorage.removeItem("email")
+        localStorage.removeItem("token")
+        localStorage.removeItem("role")
+        this.router.navigate(['/auth/login'])
      }
 
      getRole(){

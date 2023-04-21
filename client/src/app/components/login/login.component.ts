@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         this.authSvc.addRole(this.authSvc.getRole())
         this.status.statusCode = 200
         this.status.message = "Log in success! Redirecting..."
-        this.router.navigate(['./api/search'])
+        this.router.navigate(['/'])
       })
       .catch(error => {
         console.error('>>> loginForm: error: ', error)

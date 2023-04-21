@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.json.JsonObject;
 import vttp2022.miniproject02.server.model.Account;
+import vttp2022.miniproject02.server.service.ApiService;
 import vttp2022.miniproject02.server.service.AppService;
 
 @Controller
@@ -32,6 +33,9 @@ public class AppController {
 
     @Autowired
     private AppService appSvc;
+
+    @Autowired
+    private ApiService apiSvc;
 
     // @GetMapping("/user")
     // @ResponseBody
@@ -83,6 +87,7 @@ public class AppController {
 
     @PutMapping(value="/dashboard/account/update/{id}", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> updateAccountById(@PathVariable String id, @RequestBody Account updatedAccount) {
 
         System.out.printf(">>> path variable: id=%s\n", id);
@@ -134,14 +139,58 @@ public class AppController {
         return ResponseEntity.ok(jsonResponse);
     }
 
-    @GetMapping("/user/search")
+    @GetMapping("/home")
     @ResponseBody
-    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
-    public ResponseEntity<String> getSearch() {
+    public ResponseEntity<String> getListOfDeals() {
 
-        System.out.println("getSearch API called");
+        System.out.println("getListOfDeals() API called");
 
-        return ResponseEntity.ok(null);
+        // call the api
+        String jsonArrayStringDeals = apiSvc.getListOfDeals();
+
+        return ResponseEntity.ok(jsonArrayStringDeals);
     }
 
+    @GetMapping("/search")
+    @ResponseBody
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    public ResponseEntity<String> getSearch(@RequestParam String searchTerm) {
+
+        System.out.println("getListOfGames() API called");
+
+        String newSearchTerm = searchTerm.replaceAll(" ", "");
+
+        System.out.printf(">>> query param: searchTerm=%s\n", newSearchTerm);
+
+        String jsonArrayStringGames = apiSvc.getListOfGames(newSearchTerm);
+
+        return ResponseEntity.ok(jsonArrayStringGames);
+    }
+
+    @GetMapping("/deal/detail")
+    @ResponseBody
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    public ResponseEntity<String> getDealDetail(@RequestParam String dealID) {
+
+        System.out.println("getDealDetail() API called");
+        System.out.printf(">>> query param: dealID=%s\n", dealID);
+
+        // String encodedDealID = URLEncoder.encode(dealID, "UTF-8");
+
+        String jsonStringDetail = apiSvc.getDealDetail(dealID);
+
+        return ResponseEntity.ok(jsonStringDetail);
+    }
+
+    @GetMapping("/stores")
+    @ResponseBody
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    public ResponseEntity<String> getListOfStores() {
+    
+        System.out.println("getListOfStores() API called");
+
+        String jsonArrayStringStores = apiSvc.getListOfStores();
+
+        return ResponseEntity.ok(jsonArrayStringStores);
+    }
 }

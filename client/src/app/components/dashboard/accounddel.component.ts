@@ -27,7 +27,7 @@ export class AccounddelComponent implements OnInit, OnDestroy {
 
   doYes(id: string) {
     this.protectedSvc.deleteAccountById(id)
-    
+    alert("Account successfully deleted!")
     this.router.navigate(['/api/dashboard'])
   }
 

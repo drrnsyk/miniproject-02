@@ -9,4 +9,6 @@ public class Queries {
     public static String SQL_UPDATE_ACCOUNT_BY_ID = "UPDATE users SET email = ?, name = ? WHERE id = ?";
     
     public static String SQL_DELETE_ACCOUNT_BY_ID = "DELETE FROM users WHERE id = ?";
+
+    public static String SQL_INSERT_STORES = "INSERT INTO stores (storeID, storeName, isActive, imagesBanner, imagesLogo, imagesIcon) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE storeName = VALUES(storeName), isActive = VALUES(isActive), imagesBanner = VALUES(imagesBanner), imagesLogo = VALUES(imagesLogo), imagesIcon = VALUES(imagesIcon)";
 }
