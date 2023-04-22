@@ -4,6 +4,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
@@ -21,14 +22,17 @@ import vttp2022.miniproject02.server.model.Deal;
 import vttp2022.miniproject02.server.model.Game;
 import vttp2022.miniproject02.server.model.Store;
 import vttp2022.miniproject02.server.repository.MySqlRepository;
+import vttp2022.miniproject02.server.repository.RedisRepository;
 
 @Service
 public class ApiService {
 
     @Autowired
+    private RedisRepository redisRepo;
+
+    @Autowired
     private MySqlRepository mySqlRepo;
     
-    // api call from cheapshark
     public static final String URL_NAME_DEALS = "https://www.cheapshark.com/api/1.0/deals";
     public static final String URL_NAME_GAMES = "https://www.cheapshark.com/api/1.0/games";
     public static final String URL_NAME_DETAIL = "https://www.cheapshark.com/api/1.0/deals";
@@ -37,33 +41,49 @@ public class ApiService {
 
     public String getListOfDeals() {
 
+        // check if list is in redis cache
+        Optional<String> opt = redisRepo.getListOfDealsFromRedis();  
         String payload;
-        System.out.println(">>> Getting deals from cheapshark api");
 
-        try {
+        if (opt.isEmpty()) {
+
+            System.out.println(">>> Getting deals from cheapshark api");
+            try {
             
-            // construct the url
-            String urlName = UriComponentsBuilder.fromUriString(URL_NAME_DEALS)
-                .toUriString();
-            
-            // build the url
-            RequestEntity<Void> req = RequestEntity.get(urlName).build();
+                // construct the url
+                String urlName = UriComponentsBuilder.fromUriString(URL_NAME_DEALS)
+                    .toUriString();
+                
+                // build the url
+                RequestEntity<Void> req = RequestEntity.get(urlName).build();
+    
+                // declare template and response entity
+                RestTemplate restTemplate = new RestTemplate();
+                ResponseEntity<String> resp;
+    
+                resp = restTemplate.exchange(req, String.class);
+    
+                payload = resp.getBody();
+    
+                // print out the payload to check
+                // System.out.println("payload: " + payload);
 
-            // declare template and response entity
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> resp;
+                // cache to redis
+                redisRepo.saveListOfDealsToRedis(payload);
+    
+    
+            } catch (Exception e) {
+                System.err.printf("error: %s\n", e.getMessage());
+                return "";
+            }
 
-            resp = restTemplate.exchange(req, String.class);
+        } else {
 
-            payload = resp.getBody();
-
+            payload = opt.get();
+            System.out.println(">>> Getting deals from redis cache");
             // print out the payload to check
             // System.out.println("payload: " + payload);
 
-
-        } catch (Exception e) {
-            System.err.printf("error: %s\n", e.getMessage());
-            return "";
         }
 
         Reader strReader = new StringReader(payload);
@@ -84,10 +104,10 @@ public class ApiService {
             });
         
         JsonArray jsonArrayDeals = jsonArrayBuilder.build();
-        // cache to redis here if needed
+
         String jsonArrayStringDeals = jsonArrayDeals.toString();
 
-        return jsonArrayStringDeals;
+        return jsonArrayStringDeals;        
     }
 
 
