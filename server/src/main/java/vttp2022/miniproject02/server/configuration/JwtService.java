@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,10 @@ public class JwtService {
     // payload = claims, where user data can be extracted
     // signature = verify the sender, ensure message not changed along the way
 
-    private static final String SECRET_KEY="404D635166546A576E5A7234753777217A25432A462D4A614E645267556B5870";
+    // @Value("${SECRET_KEY_JWT}") // this is also the api key
+    // private String secretKey;
+
+    private static final String SECRET_KEY = "404D635166546A576E5A7234753777217A25432A462D4A614E645267556B587";
     private static final Integer EXPIRATION = 1000 * 60 * 60 * 24; // 1 day
 
     public String extractUsername(String jwt) {

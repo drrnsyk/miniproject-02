@@ -3,6 +3,7 @@ package vttp2022.miniproject02.server.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,9 @@ import vttp2022.miniproject02.server.model.Subscription;
 @RequestMapping("/sub")
 public class StripeController {
 
+	@Value("${SECRET_KEY_STRIPE}") // this is also the api key
+    private String secretKey;
+
     @PostMapping(value="/subscribe", produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> subscribe(@RequestBody Subscription payment) throws StripeException {
 
@@ -31,7 +35,7 @@ public class StripeController {
 		System.out.println(payment.getAmount());
 
 		// We initilize stripe object with the api key
-		Stripe.apiKey = "sk_test_51MzbTxI9k83KmxCrH6N6biLQWq4Djayf1mVnZzOXej5qb3ZsIQlZZsczRi0aWp2qBRhLgC0hjZuDB3mxjVj5eH8w00dONLG8n6";
+		Stripe.apiKey = secretKey;
 		// We create a stripe session
 		SessionCreateParams params = SessionCreateParams.builder()
 				// We will use the credit card payment method
