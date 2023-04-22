@@ -1,0 +1,43 @@
+<nav>
+  <div class="logoContainer">
+      <a routerLink="/" style="cursor:pointer">GAMESDEALS.COM</a> 
+  </div>
+  
+  <ul>
+      <li>
+          <a routerLink="/auth/login" style="cursor:pointer">Login</a>
+      </li>
+  </ul>
+</nav>
+
+<body>
+  <div class="form-container">
+    <div class="form-background">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>One-time Subscription</mat-card-title>
+          <mat-card-subtitle>Pay once, save forever</mat-card-subtitle>
+        </mat-card-header>
+        <div></div>
+        <img mat-card-image src="../../../assets/game.jpg" alt="Photo of a Shiba Inu">
+        <!-- <a style="align-items: center;" href="https://www.freepik.com/free-photo/high-angle-hands-holding-controller_33263530.htm#page=2&query=game%20service&position=0&from_view=search&track=ais">Image by Freepik</a> -->
+        <div>
+          <mat-card-content>
+            <p>
+              Get access to the cheapest game deals with our one-time subscription service for just $49.90! 
+              With our service, you'll have access to exclusive discounts on the latest games across multiple platforms, including PC, Xbox, PlayStation, and more. 
+              Never pay full price for a game again and join the millions of satisfied gamers who have already saved big with our service. 
+              Subscribe now and start saving today!
+            </p>
+          </mat-card-content>
+        </div>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="doSubscribe()">
+            Checkout & Pay $49.90
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</body>

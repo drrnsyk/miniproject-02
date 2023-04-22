@@ -10,15 +10,34 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authSvc: AuthService, private router: Router) {}
 
+  // canActivate(
+  //   route: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  //   if (this.authSvc.isLoggedIn()) {
+  //     return true
+  //   } else {
+  //     this.router.navigate(['auth/login'])
+  //     return false;
+  //   }
+  // }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authSvc.isLoggedIn()) {
-      return true
-    } else {
-      this.router.navigate(['./login'])
+    
+    // Check if user is logged in
+    if (!this.authSvc.isLoggedIn()) {
+      this.router.navigate(['auth/login']);
       return false;
     }
+    
+    // Check if user is an admin
+    if (route.data['isAdmin'] && this.authSvc.getRole() != 'ADMIN') {
+      this.router.navigate(['api/error']);
+      return false;
+    }
+    
+    return true;
   }
   
 }

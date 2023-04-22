@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, firstValueFrom } from 'rxjs';
-import { Account, Deal, Detail, Game, Store } from '../components/model/model';
+import { firstValueFrom } from 'rxjs';
+import { Account, Deal, Detail, Game, Store, Stripeid } from '../components/model/model';
 
 @Injectable({
   providedIn: 'root'
@@ -90,4 +90,14 @@ export class ProtectedService {
     )
   }
 
+  // call backend to create session token with stripe
+  public subscribe(payment: any): Promise<Stripeid> {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+
+    return firstValueFrom<Stripeid>(
+      this.http.post<Stripeid>('/sub/subscribe', payment, { headers: headers })
+    )
+  }
 } 

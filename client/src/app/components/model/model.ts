@@ -89,3 +89,7 @@ export interface Store {
     imagesLogo: string
     imagesIcon: string
 }
+
+export interface Stripeid {
+    id: string
+}

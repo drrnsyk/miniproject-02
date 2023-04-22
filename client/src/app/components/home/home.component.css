@@ -73,7 +73,7 @@ body {
 }
 
 .box>* {
-flex: 1 1 250px;
+    flex: 1 1 250px;
 }
 
 .example-card {
@@ -105,3 +105,7 @@ mat-card img {
     height: 200px; /* set a fixed height or use a consistent aspect ratio */
     object-fit: cover; /* to ensure the image covers the entire space */
 }
+
+mat-card-actions button.custom-button {
+    height: 80px;
+  }

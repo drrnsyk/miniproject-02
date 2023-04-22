@@ -18,6 +18,10 @@ import { AccounddelComponent } from './components/dashboard/accounddel.component
 import { DetailComponent } from './components/detail/detail.component';
 import { StoreComponent } from './components/store/store.component';
 import { AccountaddComponent } from './components/dashboard/accountadd.component';
+import { CancelComponent } from './components/cancel/cancel.component';
+import { SuccessComponent } from './components/success/success.component';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import { AccountaddComponent } from './components/dashboard/accountadd.component
     DetailComponent,
     StoreComponent,
     AccountaddComponent,
+    CancelComponent,
+    SuccessComponent,
+    SubscribeComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

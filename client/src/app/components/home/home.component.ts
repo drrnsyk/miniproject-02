@@ -28,4 +28,8 @@ export class HomeComponent implements OnInit {
       })
   }
 
+  doSubscribe() {
+    this.router.navigate([ '/sub/subscribe' ])
+  }
+
 }

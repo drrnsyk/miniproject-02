@@ -8,7 +8,7 @@
             <a routerLink="/auth/login" style="cursor:pointer">Login</a>
         </li>
         <li>
-            <a routerLink="/auth/signup" style="cursor:pointer">Signup</a>
+            <a routerLink="/sub/subscribe" style="cursor:pointer">Subscribe</a>
         </li>
     </ul>
 </nav>
@@ -35,8 +35,8 @@
                     </h2>
                 </mat-card-content>
                 <mat-card-actions>
-                    <!-- <button mat-raised-button color="primary">More details</button>&nbsp; -->
-                    <button mat-raised-button color="primary">Buy Now!</button>
+                    <!-- <button mat-raised-button color="primary">More details</button>&nbsp;
+                    <button mat-raised-button color="primary">Buy Now!</button> -->
                 </mat-card-actions>
             </mat-card>
         </div>
@@ -50,15 +50,8 @@
                     <mat-card-subtitle>This deal is rated: <b>{{deal.dealRating}} out of 10.0</b></mat-card-subtitle>
                 </mat-card-header>
                 <img mat-card-image src="{{deal.thumb}}" alt="Cover photo of the game">
-                <mat-card-content>
-                    <p>
-                        Subscribe to our service at just $50 to keep updated with the latest 
-                        game deals. Search for any game and find the lowest price available!
-                        Spend less time finding, more time playing!
-                    </p>
-                </mat-card-content>
                 <mat-card-actions>
-                    <button mat-raised-button color="primary">Subscribe to see prices!</button>&nbsp;
+                    <button mat-raised-button color="primary" class="custom-button" (click)="doSubscribe()">Click here to subscribe, signup & login to view stores discount and special prices!</button>&nbsp;
                 </mat-card-actions>
             </mat-card>
         </div>

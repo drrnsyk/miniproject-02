@@ -40,7 +40,7 @@ public class SecurityConfiguration {
             .cors()
             .and()
             .csrf().disable()
-            .authorizeHttpRequests().requestMatchers("/auth/**", "/api/home", "/**").permitAll()
+            .authorizeHttpRequests().requestMatchers("/sub/**", "/auth/**", "/api/home").permitAll()
             .and()
             .authorizeHttpRequests().requestMatchers("/api/**").authenticated()  
             .and()
@@ -54,17 +54,17 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("*"));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-    configuration.setAllowedHeaders(Arrays.asList("content-type", "authorization"));
+    // @Bean
+    // public CorsConfigurationSource corsConfigurationSource() {
+    // CorsConfiguration configuration = new CorsConfiguration();
+    // configuration.setAllowedOrigins(Arrays.asList("*"));
+    // configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+    // configuration.setAllowedHeaders(Arrays.asList("content-type", "authorization"));
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
+    // UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    // source.registerCorsConfiguration("/**", configuration);
 
-    return source;
-}
+    // return source;
+    // }
     
 }
