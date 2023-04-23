@@ -25,7 +25,7 @@ export class SubscribeComponent {
       // cancelUrl: 'http://localhost:4200/#/sub/subscribe',
       // successUrl: 'http://localhost:4200/#/auth/signup',
       cancelUrl: 'https://miniproject02-production.up.railway.app/#/sub/subscribe',
-      successUrl: 'https://miniproject02-production.up.railway.app/#/auth/login',
+      successUrl: 'https://miniproject02-production.up.railway.app/#/auth/signup',
     };
 
     const stripe = await this.stripePromise;
