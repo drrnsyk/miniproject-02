@@ -184,7 +184,6 @@ public class AppController {
 
     @GetMapping("/stores")
     @ResponseBody
-    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
     public ResponseEntity<String> getListOfStores() {
     
         System.out.println("getListOfStores() API called");
