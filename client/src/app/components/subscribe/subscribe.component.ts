@@ -22,8 +22,10 @@ export class SubscribeComponent {
       currency: 'usd',
       amount: 4990,
       quantity: '1',
-      cancelUrl: 'http://localhost:4200/#/sub/subscribe',
-      successUrl: 'http://localhost:4200/#/auth/signup',
+      // cancelUrl: 'http://localhost:4200/#/sub/subscribe',
+      // successUrl: 'http://localhost:4200/#/auth/signup',
+      cancelUrl: 'https://miniproject02-production.up.railway.app/#/sub/subscribe',
+      successUrl: 'https://miniproject02-production.up.railway.app/#/auth/login',
     };
 
     const stripe = await this.stripePromise;
@@ -38,9 +40,9 @@ export class SubscribeComponent {
       .catch(error => {
         console.error('>>> SubscribeComponent: doSubscribe(): error: ', error)
       })
-      .finally(() => {
-        sessionStorage.setItem('paymentSuccess', 'true');
-      });
+        .finally(() => {
+    sessionStorage.setItem('paymentSuccess', 'true');
+  });
   }
 
 

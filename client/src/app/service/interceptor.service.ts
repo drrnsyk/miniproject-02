@@ -10,7 +10,15 @@ export class InterceptorService implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-    if (localStorage.getItem('email') && localStorage.getItem('token')) {
+    // if (localStorage.getItem('email') && localStorage.getItem('token')) {
+    //   req = req.clone({
+    //     setHeaders: {
+    //       Authorization: `Bearer ${localStorage.getItem('token')}`
+    //     }
+    //   })
+    // }
+
+    if (localStorage.getItem('token')) {
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
