@@ -47,6 +47,7 @@ export class SignupComponent implements OnInit {
       .catch(error => {
         console.error('>>> sendWelcomeEmail(): error: ', error)
       })
+      alert("Registration Successful. A confirmation email has been sent!")
     this.router.navigate([ '/auth/login' ])
   }
 

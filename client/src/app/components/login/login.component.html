@@ -19,7 +19,7 @@
             </div>
 
             <div class="input-container"> 
-                <input formControlName="email" type="email" name="email" class="input" placeholder="Email">
+                <input formControlName="email" type="email" name="email" class="input" placeholder="Email: admin@gmail.com">
             </div>
             <div class="error" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
                 <span *ngIf="loginForm.get('email')?.hasError('required')">
@@ -31,7 +31,7 @@
             </div>
 
             <div class="input-container"> 
-                <input type="password" formControlName="password" name="password" class="input" placeholder="Password">
+                <input type="password" formControlName="password" name="password" class="input" placeholder="Password: 123456789">
             </div>
             <div class="error" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
                 <span *ngIf="loginForm.get('password')?.hasError('required')">
