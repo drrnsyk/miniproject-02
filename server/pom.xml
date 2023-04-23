@@ -99,6 +99,10 @@
 			<artifactId>stripe-java</artifactId>
 			<version>22.16.0</version>
 		</dependency>
+		<dependency>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<groupId>org.springframework.boot</groupId>
+		</dependency>
 	</dependencies>
 
 	<build>

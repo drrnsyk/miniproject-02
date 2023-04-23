@@ -20,4 +20,14 @@ export class SignupService {
         )
     }
 
+    sendWelcomeEmail(signupReq: SignupRequest): Promise<any> {
+      const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Accept', 'application/json')
+
+      return firstValueFrom(
+        this.http.post<any>('/email/welcome', signupReq, { headers: headers })
+      )
+    }
+
 }
