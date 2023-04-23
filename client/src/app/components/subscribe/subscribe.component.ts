@@ -15,33 +15,6 @@ export class SubscribeComponent {
   
   constructor(private http: HttpClient, private protectedSvc: ProtectedService) {}
 
-  // async pay(): Promise<void> {
-  //   // here we create a payment object
-  //   const payment = {
-  //     name: 'one-time-subscription',
-  //     currency: 'usd',
-  //     // amount on cents *10 => to be on dollar
-  //     amount: 49900,
-  //     quantity: '1',
-  //     cancelUrl: 'http://localhost:4200/cancel',
-  //     successUrl: 'http://localhost:4200/success',
-  //   };
-
-  //   const stripe = await this.stripePromise;
-
-  //   // this is a normal http calls for a backend api
-  //   console.info('>>> SubscribeComponent: pay(): calls the backend')
-  //   this.http
-  //     .post('/sub/subscribe', payment)
-  //     .subscribe((data: any) => {
-  //       // I use stripe to redirect To Checkout page of Stripe platform
-  //       // stripe?.redirectToCheckout({
-  //       //   sessionId: data.id,
-  //       // });
-  //       console.info('>>> SubscribeComponent: pay(): data', data)
-  //     });
-  // }
-
   async doSubscribe() {
 
     const payment = {
@@ -65,6 +38,9 @@ export class SubscribeComponent {
       .catch(error => {
         console.error('>>> SubscribeComponent: doSubscribe(): error: ', error)
       })
+      .finally(() => {
+        sessionStorage.setItem('paymentSuccess', 'true');
+      });
   }
 
 

@@ -15,7 +15,12 @@ export class SignupComponent implements OnInit {
   signupForm!: FormGroup
   status!: Status;
 
-  constructor(private fb: FormBuilder, private signupSvc: SignupService, private router:Router) {}
+  constructor(private fb: FormBuilder, private signupSvc: SignupService, private router:Router) {
+    const paymentSuccess = sessionStorage.getItem('paymentSuccess');
+    if (!paymentSuccess) {
+      this.router.navigate([ '/sub/subscribe' ]);
+    }
+  }
 
   ngOnInit(): void {
     this.signupForm = this.createForm()
