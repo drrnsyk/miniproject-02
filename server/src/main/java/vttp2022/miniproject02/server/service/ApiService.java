@@ -224,60 +224,76 @@ public class ApiService {
 
     public String getListOfStores() {
 
+        Optional<String> opt = redisRepo.getListOfStoresFromRedis();  
         String payload;
-        System.out.println(">>> Getting stores from cheapshark api");
+        
+        if (opt.isEmpty()) {
 
-        try {
-            
-            // construct the url
-            String urlName = UriComponentsBuilder.fromUriString(URL_NAME_STORES)
-                .toUriString();
-            
-            // build the url
-            RequestEntity<Void> req = RequestEntity.get(urlName).build();
+            System.out.println(">>> Getting stores from cheapshark api");
+            try {
+                
+                // construct the url
+                String urlName = UriComponentsBuilder.fromUriString(URL_NAME_STORES)
+                    .toUriString();
+                
+                // build the url
+                RequestEntity<Void> req = RequestEntity.get(urlName).build();
 
-            // declare template and response entity
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> resp;
+                // declare template and response entity
+                RestTemplate restTemplate = new RestTemplate();
+                ResponseEntity<String> resp;
 
-            resp = restTemplate.exchange(req, String.class);
+                resp = restTemplate.exchange(req, String.class);
 
-            payload = resp.getBody();
+                payload = resp.getBody();
 
+                // print out the payload to check
+                System.out.println("payload: " + payload);
+
+                // cache to redis
+                // redisRepo.saveListOfStoresToRedis(payload);
+
+
+            } catch (Exception e) {
+                System.err.printf("error: %s\n", e.getMessage());
+                return "";
+            }
+
+        } else {
+
+            payload = opt.get();
+            System.out.println(">>> Getting stores from redis cache");
             // print out the payload to check
-            System.out.println("payload: " + payload);
+            // System.out.println("payload: " + payload);
 
-
-        } catch (Exception e) {
-            System.err.printf("error: %s\n", e.getMessage());
-            return "";
         }
 
         Reader strReader = new StringReader(payload);
-        JsonReader jsonReader = Json.createReader(strReader);
-        JsonArray results = jsonReader.readArray();
+            JsonReader jsonReader = Json.createReader(strReader);
+            JsonArray results = jsonReader.readArray();
 
-        List<Store> stores = new LinkedList<>();
-        
-        for (int i = 0; i < results.size(); i++) {
-            JsonObject joResult = results.getJsonObject(i);
-            JsonObject joImages = joResult.getJsonObject("images");
-            stores.add(Store.create(joResult, joImages));
-        }
+            List<Store> stores = new LinkedList<>();
+            
+            for (int i = 0; i < results.size(); i++) {
+                JsonObject joResult = results.getJsonObject(i);
+                JsonObject joImages = joResult.getJsonObject("images");
+                stores.add(Store.create(joResult, joImages));
+            }
 
-        mySqlRepo.saveStoresToMySql(stores);
+            mySqlRepo.saveStoresToMySql(stores);
 
-        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        stores.stream()
-            .forEach(s -> {
-                jsonArrayBuilder.add(s.toJson());
-            });
-        
-        JsonArray jsonArrayDeals = jsonArrayBuilder.build();
+            JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+            stores.stream()
+                .forEach(s -> {
+                    jsonArrayBuilder.add(s.toJson());
+                });
+            
+            JsonArray jsonArrayDeals = jsonArrayBuilder.build();
 
-        String jsonArrayStringDeals = jsonArrayDeals.toString();
+            String jsonArrayStringDeals = jsonArrayDeals.toString();
 
-        return jsonArrayStringDeals;
+            return jsonArrayStringDeals;
+
     }
 
 

@@ -33,5 +33,19 @@ public class RedisRepository {
             return Optional.empty();
         return Optional.of(value);
     }
+
+    public void saveListOfStoresToRedis(String payload) {
+        // save entire payload into redis
+        ValueOperations<String, String> valueOp = redisTemplate.opsForValue();
+        valueOp.set("stores", payload, Duration.ofMinutes(cacheTime));
+    }
+
+    public Optional<String> getListOfStoresFromRedis() {
+        ValueOperations<String,String> valueOp = redisTemplate.opsForValue();
+        String value = valueOp.get("stores");
+        if (null == value)
+            return Optional.empty();
+        return Optional.of(value);
+    }
     
 }
